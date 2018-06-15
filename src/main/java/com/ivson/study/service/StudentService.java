@@ -15,5 +15,7 @@ public interface StudentService {
 	public void deleteStudent(long id);
 	
 	public ResponseEntity<Object> createStudent(Student student);
+	
+	public ResponseEntity<Object> updateStudent(Student student, long id);
 
 }
