@@ -3,24 +3,36 @@ package com.ivson.study.resources;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ivson.study.model.Student;
-import com.ivson.study.repository.StudentRepository;
+import com.ivson.study.service.StudentService;
 
 /**
- * Combination of @Controller and @ResponseBody. 
- * Beans returned are converted to/from JSON/XML.
+ * Combination of @Controller and @ResponseBody. Beans returned are converted
+ * to/from JSON/XML.
  */
 @RestController
 public class StudentResource {
 
 	@Autowired
-	private StudentRepository studentRepository;
-	
+	private StudentService studentService;
+
 	@GetMapping("/students")
 	public List<Student> retrieveAllStudents() {
-		return studentRepository.findAll();
+		return studentService.retrieveAllStudents();
+	}
+
+	@GetMapping("/students/{id}")
+	public Student retrieveStudent(@PathVariable long id) {		
+		return studentService.retrieveStudent(id);
+	}
+	
+	@DeleteMapping("/students/{id}")
+	public void deleteStudent(@PathVariable long id) {
+		studentService.deleteStudent(id);
 	}
 }
