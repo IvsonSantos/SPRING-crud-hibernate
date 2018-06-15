@@ -1,10 +1,14 @@
 package com.ivson.study.service;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.ivson.study.model.Student;
 import com.ivson.study.repository.StudentRepository;
@@ -32,5 +36,19 @@ public class StudentServiceImpl implements StudentService {
 	
 	public void deleteStudent(long id) {
 		studentRepository.deleteById(id);
+	}
+	
+	@PostMapping("/students")
+	public ResponseEntity<Object> createStudent(Student student) {
+		Student savedStudent = studentRepository.save(student);
+
+		URI location = ServletUriComponentsBuilder
+													.fromCurrentRequest()
+													.path("/{id}")
+													.buildAndExpand(savedStudent.getId())
+													.toUri();
+
+		return ResponseEntity.created(location).build();
+
 	}
 }

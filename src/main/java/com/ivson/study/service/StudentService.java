@@ -2,6 +2,8 @@ package com.ivson.study.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
 import com.ivson.study.model.Student;
 
 public interface StudentService {
@@ -12,4 +14,6 @@ public interface StudentService {
 	
 	public void deleteStudent(long id);
 	
+	public ResponseEntity<Object> createStudent(Student student);
+
 }
