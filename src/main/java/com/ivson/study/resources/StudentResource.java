@@ -2,6 +2,8 @@ package com.ivson.study.resources;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,12 +43,12 @@ public class StudentResource {
 	}
 	
 	@PostMapping("/students")
-	public ResponseEntity<Object> createStudent(@RequestBody Student student) {		
+	public ResponseEntity<Object> createStudent(@Valid @RequestBody Student student) {		
 		return studentService.createStudent(student);
 	}
 	
 	@PutMapping("/students/{id}")
-	public ResponseEntity<Object> updateStudent(@RequestBody Student student, @PathVariable long id) {
+	public ResponseEntity<Object> updateStudent(@Valid @RequestBody Student student, @PathVariable long id) {
 		return studentService.updateStudent(student, id);
 	}
 	
